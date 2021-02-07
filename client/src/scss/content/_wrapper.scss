@@ -1,0 +1,58 @@
+@use '../foundation/sizes';
+@use '../foundation/colours';
+
+
+@mixin mobileWrapper {
+    justify-content: flex-start;
+    align-items: center;
+    background-color: colours.$cream-20;
+
+    &>.innerWrapper {
+        flex-direction: column;
+        width: 100%;
+        max-width: 560px;
+        padding: 100px 24px;
+    }
+}
+
+.contentWrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &>.innerWrapper {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 120px 48px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    &.contentWrapper-sm {
+        @media screen and (max-width: sizes.$sm) {
+            @include mobileWrapper;
+        }
+    }
+
+    &.contentWrapper-md {
+        @media screen and (max-width: sizes.$md) {
+            @include mobileWrapper;
+        }
+    }
+
+    &.contentWrapper-lg {
+        @media screen and (max-width: sizes.$lg) {
+            @include mobileWrapper;
+        }
+    }
+
+    &.contentWrapper-xl {
+        @media screen and (max-width: sizes.$xl) {
+            @include mobileWrapper;
+        }
+    }
+
+}
