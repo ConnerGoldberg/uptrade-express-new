@@ -7,7 +7,6 @@ import Header from '../../../components/header/header';
 import "./login.css";
 
 const sidebarBackground = {
-  // backgroundImage: "url(" + img1 + ")",
   backgroundRepeat: "no-repeat",
 };
 

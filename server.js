@@ -31,5 +31,4 @@ app.get('/api/users', (req, res) => {
 
   res.json(users);
 });
-
-app.listen(process.env.PORT, () => `Server running on port ${port}`);
+app.listen(process.env.PORT, () => `Server running on port ${process.env.PORT}`);

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./customers.css";
 import api from "../../api/api.js";
+import Header from "../header/header";
 
 class Customers extends React.Component {
   constructor() {
@@ -27,15 +28,9 @@ class Customers extends React.Component {
 
   render() {
     return (
+      
       <div>
-        {/* <h2>Customers</h2>
-        <ul>
-          {this.state.customers.map((customer) => (
-            <li key={customer.id}>
-              {customer.firstName} {customer.lastName}
-            </li>
-          ))}
-        </ul> */}
+        <Header module="unauthenticated"></Header>
       </div>
     );
   }

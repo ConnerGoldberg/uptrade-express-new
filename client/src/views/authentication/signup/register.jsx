@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import { Form, FormGroup, Button, Col, Input, Row, Card, CardBody } from "reactstrap";
+import { Form, FormGroup, Button, Col, Input, Row, Card, CardBody, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import Header from '../../../components/header/header';
 import "./register.css";
 
@@ -98,6 +98,13 @@ class Register extends React.Component {
                         {" "}
                         {this.state.isValid ? "" : this.state.errorMsg}{" "}
                       </div>
+                      <FormGroup>
+                        <Input type="select" name="select" id="profile-type">
+                          <option>Profile Type...</option>
+                          <option>Contractor</option>
+                          <option>Client</option>
+                        </Input>
+                      </FormGroup>
                     </div>
                     <Button block color="info">
                       <span className="trade-gothic__container">REGISTER</span>
