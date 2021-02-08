@@ -1,4 +1,4 @@
-@import '../../scss/global';
+@import '../../scss/_global.scss';
 
 .loading-component {
     margin-top: 3rem;
@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: center;
     font-size: 3rem;
-    color: $globalNavBarColor;
+    color: $uptrade-primary;
 }
 
 .submit-success__container {
