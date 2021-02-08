@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./customers.css";
 
-class Customers extends Component {
+class Customers extends React.Component {
   constructor() {
     super();
     this.state = {

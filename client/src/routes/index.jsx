@@ -13,7 +13,7 @@ var indexRoutes = [
     component: ContractorLayout,
   },
   { path: "/client", name: "Client Portal", component: ClientLayout },
-  { path: "/", name: "Dashboard", component: FullLayout },
+  { path: "/", name: "Home", component: FullLayout },
 ];
 
 export { indexRoutes };
