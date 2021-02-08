@@ -25,11 +25,11 @@ export const logout = () => {
       .post("/logout")
       .then(res => {
         encodeCookie({ key: "token", value: undefined });
-        history.push("/authentication/login");
+        history.push("/login");
       })
       .catch(err => {
         console.log("Error while logging out");
-        history.push("/authentication/login");
+        history.push("/login");
       });
   };
 

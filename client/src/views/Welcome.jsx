@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card, CardBody, Row } from "reactstrap";
+import Header from "../components/header/header";
 import banner from '../assets/banner.jpg';
 import forum from '../assets/forum.png';
 import videos from '../assets/videos.png';
@@ -9,7 +10,10 @@ import './Welcome.css'
 class Welcome extends React.Component {
   render() {
     return (
-     
+      <React.Fragment>
+      <Header         
+          module="unauthenticated"
+        />
       <Row>
       <img style={{width: "100%", overflow:"hidden"}} src={banner} alt="banner"/>     
       <div className="container">
@@ -31,7 +35,7 @@ class Welcome extends React.Component {
  </div>   
       </Row>
       
-     
+     </React.Fragment>
     );
   }
 }

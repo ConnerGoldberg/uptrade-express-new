@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { Form, FormGroup, Button, Col, Input, Row, Card, CardBody } from "reactstrap";
-
+import Header from '../../../components/header/header';
 import "./register.css";
 
 const sidebarBackground = {
@@ -43,10 +43,11 @@ class Register extends React.Component {
     return (
       <div className="">
         <Helmet>
-          <title>Log In - Uptrade</title>
+          <title>Sign Up - Uptrade</title>
         </Helmet>
+        <Header module="unauthenticated"></Header>
         {/*--------------------------------------------------------------------------------*/}
-        {/*Login Cards*/}
+        {/*Registration Cards*/}
         {/*--------------------------------------------------------------------------------*/}
         <div
           className="auth-wrapper d-flex no-block justify-content-center align-items-center"
@@ -103,14 +104,14 @@ class Register extends React.Component {
                     </Button>
                     <div className="center-text">
                     <div className="text-center">
-										Already have an account? <a href="/authentication/login">
+										Already have an account? <a href="/login">
                         <div className="sign-in-text trade-gothic__container">
                           SIGN IN
                         </div>
                       </a>
 									</div>
                      
-                      <Link to="/authentication/forgot-password">
+                      <Link to="/forgot-password">
                         <div className="forgot-password-text trade-gothic__container">
                           Forgot Password?
                         </div>

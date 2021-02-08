@@ -2,6 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import { Form, FormGroup, Button, Col, Input, Row, Card, CardBody } from "reactstrap";
+import Header from '../../../components/header/header';
 
 import "./login.css";
 
@@ -45,6 +46,7 @@ class Login extends React.Component {
         <Helmet>
           <title>Log In - Uptrade</title>
         </Helmet>
+        <Header module="unauthenticated"></Header>
         {/*--------------------------------------------------------------------------------*/}
         {/*Login Cards*/}
         {/*--------------------------------------------------------------------------------*/}
@@ -94,12 +96,12 @@ class Login extends React.Component {
                       <span className="trade-gothic__container">LOG IN</span>
                     </Button>
                     <div className="center-text">
-                      <a href="/authentication/register">
+                      <a href="/signup">
                         <div className="sign-up-text trade-gothic__container">
                           SIGN UP
                         </div>
                       </a>
-                      <Link to="/authentication/forgot-password">
+                      <Link to="/forgot-password">
                         <div className="forgot-password-text trade-gothic__container">
                           Forgot Password?
                         </div>

@@ -10,6 +10,7 @@ import {
   NavbarToggler,
   ButtonGroup,
 } from "reactstrap";
+import history from "../../history";
 import logo from '../../assets/OldLogo.jpg';
 import './header.css';
 class Header extends React.Component {
@@ -41,11 +42,11 @@ class Header extends React.Component {
                <Row>
                <p className="centered"> Already have an account?  </p>   
                  
-                  <Link className="link" to="/authentication/login" onClick={() => {this.props.history.push("/authentication/login")}}>
+                  <Link className="link" to="/login" onClick={() => {history.push("/login")}}>
                   <Button outline color="info" size="lg" className="signup-btn">Log In </Button>
                       </Link>
                  
-                  <Link className="link"  to="/authentication/register" onClick={() => {this.props.history.push("/authentication/register")}}>
+                  <Link className="link"  to="/signup" onClick={() => {history.push("/signup")}}>
                   <Button outline color="secondary" size="lg">Sign Up</Button>
                        </Link>
                          
