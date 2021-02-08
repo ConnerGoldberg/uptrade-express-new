@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   NavbarBrand,
   Collapse,
@@ -39,8 +40,14 @@ class Header extends React.Component {
              : (<Nav className="ml-auto signupNav" navbar>
                <Row>
                <p className="centered"> Already have an account?  </p>   
-                  <Button outline color="info" size="lg" className="signup-btn">Log In</Button>
-                  <Button outline color="secondary" size="lg">Sign Up</Button>    
+                 
+                  <Link className="link" to="/authentication/login" onClick={() => {this.props.history.push("/authentication/login")}}>
+                  <Button outline color="info" size="lg" className="signup-btn">Log In </Button>
+                      </Link>
+                 
+                  <Link className="link"  to="/authentication/register" onClick={() => {this.props.history.push("/authentication/register")}}>
+                  <Button outline color="secondary" size="lg">Sign Up</Button>
+                       </Link>
                          
                  </Row>  
                              

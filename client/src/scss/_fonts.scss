@@ -1,0 +1,110 @@
+@import './screens.scss';
+
+@mixin h1 {
+    font-family: sans-serif;
+    font-size: 3.375rem;
+    line-height: 4rem;
+    font-style: normal;
+    font-weight: 800;
+
+    @media screen and (max-width: $sm) {
+        font-size: 2.5rem;
+        line-height: 3rem;
+    }
+}
+
+@mixin h2 {
+    font-family: sans-serif;
+    font-size: 2.75rem;
+    line-height: 3.25rem;
+    font-style: normal;
+    font-weight: 800;
+
+    @media screen and (max-width: $sm) {
+        font-size: 2.25rem;
+        line-height: 2.9375rem;
+    }
+}
+
+@mixin h3 {
+    font-family: sans-serif;
+    font-size: 2rem;
+    line-height: 2.625rem;
+    font-style: normal;
+    font-weight: 800;
+
+    @media screen and (max-width: $sm) {
+        font-size: 1.5rem;
+        line-height: 1.9375rem;
+    }
+}
+
+@mixin h4 {
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.9375rem;
+    font-style: normal;
+    font-weight: 800;
+}
+
+@mixin h5 {
+    font-family: sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-style: normal;
+    font-weight: 800;
+}
+
+@mixin h6 {
+    font-family: sans-serif;
+    font-size: 1rem;
+    line-height: 1.625rem;
+    font-style: normal;
+    font-weight: 800;
+}
+
+@mixin callout {
+    font-family: sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    font-style: normal;
+    font-weight: 600;
+}
+
+@mixin subhead {
+    font-family: sans-serif;
+    font-size: 0.75rem;
+    line-height: 1.0625rem;
+    font-style: normal;
+    font-weight: 600;
+}
+
+@mixin caption {
+    font-family: sans-serif;
+    font-size: 0.625rem;
+    line-height: 0.875rem;
+    font-style: normal;
+    font-weight: 600;
+}
+
+@mixin label {
+    font-family: sans-serif;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    font-style: normal;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+@mixin bold {
+    font-style: normal;
+    font-weight: 800;
+}
+
+@mixin medium {
+    font-weight: 600;
+}
+
+@mixin regular {
+    font-weight: 500;
+}

@@ -1,0 +1,87 @@
+// Import Foundation
+
+@import './_colors.scss';
+@import './_screens.scss';
+@import './_fonts.scss';
+
+// Generic Font Styling
+
+html,
+body {
+    margin: unset;
+    padding: unset;
+    max-width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    font-family: sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: subpixel-antialiased;
+
+    font-size: 16px;
+    line-height: 1.625em;
+    font-style: normal;
+    font-weight: 600;
+    vertical-align: middle;
+
+    color: $charcoal-110;
+}
+
+.h1,
+h1 {
+    @include h1;
+}
+
+.h2,
+h2 {
+    @include h2;
+}
+
+.h3,
+h3 {
+    @include h3;
+}
+
+.h4,
+h4 {
+    @include h4;
+}
+
+.h5,
+h5 {
+    @include h5;
+}
+
+.h6,
+h6 {
+    @include h6;
+}
+
+.callout {
+    @include callout;
+}
+
+.subhead {
+    @include subhead;
+}
+
+.caption {
+    @include caption;
+}
+
+.label {
+    @include label;
+}
+
+strong,
+.bold {
+    @include bold;
+}
+
+.medium {
+    @include medium;
+}
+
+.regular {
+    @include regular;
+}

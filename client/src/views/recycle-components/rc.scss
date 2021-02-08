@@ -1,0 +1,29 @@
+@import '../../scss/global';
+
+.loading-component {
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: $globalNavBarColor;
+}
+
+.submit-success__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: auto;
+    text-align: justify;
+
+    h3 {
+        font-size: 25px;
+        font-weight: 600;
+        margin-bottom: 30px;
+    }
+
+    .success-message {
+        margin-bottom: 15px;
+    }
+}

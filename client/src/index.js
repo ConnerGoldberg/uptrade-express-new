@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { indexRoutes } from "./routes/index.jsx";
 import "./index.css";
-import { Route, Router, Switch } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import history from "./history";
 import "bootstrap/dist/css/bootstrap.css";
 

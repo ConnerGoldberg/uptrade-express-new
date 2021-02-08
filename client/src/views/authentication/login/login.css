@@ -1,6 +1,9 @@
+.auth-wrapper {
+  background-color: #f5f5f5; }
+  .auth-wrapper .login-card {
+    background-color: #ffffff; }
+
 .login-container {
-  background-color: transparent;
-  padding: 20px;
   max-width: 400px;
   width: 90%;
   margin: 10% 0; }
@@ -28,7 +31,7 @@
   text-align: center; }
 
 .login-container .login-form .log-in-button {
-  font-family: "TradeGothicLTPro-BdCn20", Fallback, sans-serif;
+  font-family: 'TradeGothicLTPro-BdCn20', Fallback, sans-serif;
   font-size: 24px; }
 
 .login-container .login-form input {
@@ -36,7 +39,7 @@
   font-family: CircularProBook, sans-serif; }
 
 .login-container .login-form input::placeholder {
-  color: #2E445C !important; }
+  color: #2e445c !important; }
 
 .login-container .login-form .center-text {
   margin-top: 17px;
@@ -44,10 +47,10 @@
 
 .login-container .login-form .center-text .sign-up-text {
   font-size: 18px;
-  font-family: "TradeGothicLTPro-BdCn20", Fallback, sans-serif;
+  font-family: 'TradeGothicLTPro-BdCn20', Fallback, sans-serif;
   margin-bottom: 5px;
   color: #0d243d !important; }
 
 .login-container .login-form .center-text .forgot-password-text {
   color: #0d243d !important;
-  font-family: "TradeGothicLTPro-BdCn20", Fallback, sans-serif; }
+  font-family: 'TradeGothicLTPro-BdCn20', Fallback, sans-serif; }

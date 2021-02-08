@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import authRoutes from '../routes/authroutes.jsx';
 import Header from '../components/header/header';
+import Loading from '../views/recycle-components/Loading';
 
 export default class BlankLayout extends React.Component {
     constructor(props) {
@@ -36,13 +37,14 @@ export default class BlankLayout extends React.Component {
       }
     render() {
         return (
+         
             <div className="authentications">
                   <Header
           data={this.state}
           history={this.props.history}
           settings={this.state.settings}
           module={this.state.module}
-        />
+        /> <Suspense fallback={<Loading />}>
                 {console.log(authRoutes)}
                     <Switch>
                         {authRoutes.map((prop, key) => {
@@ -55,6 +57,8 @@ export default class BlankLayout extends React.Component {
                             );
                         })}
                     </Switch>
+                    
+            </Suspense>
             </div>
         )
     }

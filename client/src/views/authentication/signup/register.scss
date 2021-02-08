@@ -1,6 +1,13 @@
+@import '../../../scss/_colors.scss';
+
+.auth-wrapper {
+    background-color: $off-white;
+    .login-card {
+        background-color: $white;
+    }
+}
+
 .login-container {
-    background-color: transparent;
-    padding: 20px;
     max-width: 400px;
     width: 90%;
     margin: 10% 0;
@@ -42,7 +49,7 @@
     margin-top: 17px;
     font-family: TradeGothic, sans-serif;
 }
-.login-container .login-form .center-text .sign-up-text {
+.login-container .login-form .center-text .sign-in-text {
     font-size: 18px;
     font-family: 'TradeGothicLTPro-BdCn20', Fallback, sans-serif;
     margin-bottom: 5px;

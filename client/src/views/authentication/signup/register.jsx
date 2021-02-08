@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import { Form, FormGroup, Button, Col, Input, Row } from "reactstrap";
+import { Form, FormGroup, Button, Col, Input, Row, Card, CardBody } from "reactstrap";
 
 import "./register.css";
 
@@ -43,7 +43,7 @@ class Register extends React.Component {
     return (
       <div className="">
         <Helmet>
-          <title>Log In - Equalution Client Portal</title>
+          <title>Log In - Uptrade</title>
         </Helmet>
         {/*--------------------------------------------------------------------------------*/}
         {/*Login Cards*/}
@@ -53,10 +53,12 @@ class Register extends React.Component {
           style={sidebarBackground}
         >
           <div className="login-container">
+            <Card className="login-card">
+              <CardBody>
             <div id="loginform">
               <div className="logo-container">
                 <span className="db">
-                  {/* <img className="img-logo" src={img1} alt="equalution log" /> */}
+                  {/* <img className="img-logo" src={img1} alt="uptrade log" /> */}
                 </span>
               </div>
               <div className="welcome-quote">{selectedQuote}</div>
@@ -83,20 +85,31 @@ class Register extends React.Component {
                           onChange={this.handleInputChange}
                         />
                       </FormGroup>
+                      <FormGroup>
+                        <Input
+                          type="confirmpassword"
+                          placeholder="Confirm Password"
+                          name="confirmpassword"
+                          onChange={this.handleInputChange}
+                        />
+                      </FormGroup>
                       <div className="error-message">
                         {" "}
                         {this.state.isValid ? "" : this.state.errorMsg}{" "}
                       </div>
                     </div>
-                    <Button block className="global-pink-button log-in-button">
-                      <span className="trade-gothic__container">LOG IN</span>
+                    <Button block color="info">
+                      <span className="trade-gothic__container">REGISTER</span>
                     </Button>
                     <div className="center-text">
-                      <a href="/authentication/sign-up">
-                        <div className="sign-up-text trade-gothic__container">
-                          SIGN UP
+                    <div className="text-center">
+										Already have an account? <a href="/authentication/login">
+                        <div className="sign-in-text trade-gothic__container">
+                          SIGN IN
                         </div>
                       </a>
+									</div>
+                     
                       <Link to="/authentication/forgot-password">
                         <div className="forgot-password-text trade-gothic__container">
                           Forgot Password?
@@ -107,7 +120,7 @@ class Register extends React.Component {
                 </Col>
               </Row>
             </div>
-          </div>
+            </CardBody></Card> </div>
         </div>
       </div>
     );

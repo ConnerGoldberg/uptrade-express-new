@@ -1,8 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import { Form, FormGroup, Button, Col, Input, Row } from "reactstrap";
-//import img1 from "../../../assets/images/logo/login/Equalution_Logo.png";
+import { Form, FormGroup, Button, Col, Input, Row, Card, CardBody } from "reactstrap";
 
 import "./login.css";
 
@@ -44,7 +43,7 @@ class Login extends React.Component {
     return (
       <div className="">
         <Helmet>
-          <title>Log In - Equalution Client Portal</title>
+          <title>Log In - Uptrade</title>
         </Helmet>
         {/*--------------------------------------------------------------------------------*/}
         {/*Login Cards*/}
@@ -54,10 +53,12 @@ class Login extends React.Component {
           style={sidebarBackground}
         >
           <div className="login-container">
+            <Card className="login-card">
+              <CardBody>
             <div id="loginform">
               <div className="logo-container">
                 <span className="db">
-                  {/* <img className="img-logo" src={img1} alt="equalution log" /> */}
+                  {/* <img className="img-logo" src={img1} alt="uptrade log" /> */}
                 </span>
               </div>
               <div className="welcome-quote">{selectedQuote}</div>
@@ -89,11 +90,11 @@ class Login extends React.Component {
                         {this.state.isValid ? "" : this.state.errorMsg}{" "}
                       </div>
                     </div>
-                    <Button block className="global-pink-button log-in-button">
+                    <Button block color="info">
                       <span className="trade-gothic__container">LOG IN</span>
                     </Button>
                     <div className="center-text">
-                      <a href="/authentication/sign-up">
+                      <a href="/authentication/register">
                         <div className="sign-up-text trade-gothic__container">
                           SIGN UP
                         </div>
@@ -108,7 +109,7 @@ class Login extends React.Component {
                 </Col>
               </Row>
             </div>
-          </div>
+            </CardBody></Card> </div>
         </div>
       </div>
     );
