@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./customers.css";
+import api from "../../api/api.js";
 
 class Customers extends React.Component {
   constructor() {
@@ -10,16 +11,18 @@ class Customers extends React.Component {
   }
 
   componentDidMount() {
-    fetch("/api/customers")
-      .then((res) => res.json())
-      .then((customers) =>
-        this.setState({ customers }, () =>
-          console.log("Customers fetched...", customers)
-        )
-      )
+
+    api
+      .getCustomers()
+      .then((res) => {
+        this.setState({ customers: res && res.data });
+      })
       .catch((err) => {
-        console.log(err);
+        console.log('err', err);
+        this.setState({ customers: [] });
       });
+
+   
   }
 
   render() {

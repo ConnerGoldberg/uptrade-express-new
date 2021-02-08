@@ -52,9 +52,9 @@ class FullLayout extends Component {
           settings={this.state.settings}
           module={this.state.module}
         />
-        <Customers></Customers>
         <Suspense fallback={<Loading />}>
           <Switch>
+            {console.log(ThemeRoutes)}
             {ThemeRoutes.map((prop, key) => {
               // User can only use questionnaire if their status is 'INITIAL'
               if (

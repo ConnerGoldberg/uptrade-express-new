@@ -1,0 +1,14 @@
+.container {
+  margin-top: 5%;
+  width: 80%;
+  overflow: hidden;
+  max-height: 450px; }
+
+.box {
+  float: left;
+  text-align: center;
+  width: 30%;
+  padding: 10px; }
+
+.box img {
+  width: 90px; }

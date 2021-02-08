@@ -8,6 +8,14 @@ const CustomersContainer = lazy(() =>
 
 const ThemeRoutes = [
   {
+    state: "home",
+    path: "/",
+    name: "Home",
+    mini: "H",
+    icon: "mdi mdi-view-dashboard",
+    component: Welcome,
+  },
+  {
     state: "welcome",
     path: "/welcome",
     name: "Welcome",

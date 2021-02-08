@@ -1,30 +1,37 @@
 import React, { Component } from "react";
 import { Card, CardBody, Row } from "reactstrap";
+import banner from '../assets/banner.jpg';
+import forum from '../assets/forum.png';
+import videos from '../assets/videos.png';
+import tools from '../assets/tools.png';
+import './Welcome.css'
 
-class Welcome extends Component {
+class Welcome extends React.Component {
   render() {
     return (
+     
       <Row>
-        <Card
-          style={{
-            display: "flex",
-            alignItems: "center",
-            margin: "0 auto",
-          }}
-        >
-          <CardBody>
-            <div className="banner-modal" style={{ maxWidth: 500 }}>
-              <div style={{ margin: 10 }}>
-                <h4>Hey Uptrade User! </h4>
-
-                <p> Title Here. </p>
-                <p> Summary Here</p>
-                <p>Conclusion Here!</p>
-              </div>
-            </div>
-          </CardBody>
-        </Card>
+      <img style={{width: "100%", overflow:"hidden"}} src={banner} alt="banner"/>     
+      <div className="container">
+       <div className="box">
+     <img src={forum}/>
+     <h3>Forums</h3>
+     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies</p>
+   </div>
+   <div className="box">
+     <img src={videos}/>
+     <h3>Videos</h3>
+     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies</p>
+   </div>
+   <div className="box">
+     <img src={tools}/>
+     <h3>Get Premium</h3>
+     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus mi augue, viverra sit amet ultricies</p>
+   </div>
+ </div>   
       </Row>
+      
+     
     );
   }
 }
