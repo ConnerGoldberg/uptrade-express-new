@@ -1,29 +1,40 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
-import { Form, FormGroup, Button, Col, Input, Row, Card, CardBody, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
+import {
+  Form,
+  FormGroup,
+  Button,
+  Col,
+  Input,
+  Row,
+  Card,
+  CardBody,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from 'reactstrap';
 import Header from '../../../components/header/header';
-import "./register.css";
+import './register.css';
 
 const sidebarBackground = {
   // backgroundImage: "url(" + img1 + ")",
-  backgroundRepeat: "no-repeat",
+  backgroundRepeat: 'no-repeat',
 };
 
-const quoteList = [
-  "Work your own way!",
-  "Ready to expand your network?",
-  "Let's get started!",
-];
+const quoteList = ['Work your own way!', 'Ready to expand your network?', "Let's get started!"];
 
 const selectedQuote = quoteList[Math.floor(Math.random() * quoteList.length)];
 
 class Register extends React.Component {
   state = {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
+    confirmpassword: '',
+    profileType: '',
     isValid: true,
-    errorMsg: "",
+    errorMsg: '',
   };
 
   handleSubmit = (event) => {
@@ -56,79 +67,65 @@ class Register extends React.Component {
           <div className="login-container">
             <Card className="login-card">
               <CardBody>
-            <div id="loginform">
-              <div className="logo-container">
-                <span className="db">
-                  {/* <img className="img-logo" src={img1} alt="uptrade log" /> */}
-                </span>
-              </div>
-              <div className="welcome-quote">{selectedQuote}</div>
-              <Row>
-                <Col xs="12">
-                  <Form
-                    className="form-material mt-3 login-form"
-                    onSubmit={this.handleSubmit}
-                  >
-                    <div className="input-container">
-                      <FormGroup>
-                        <Input
-                          type="email"
-                          placeholder="Email"
-                          name="email"
-                          onChange={this.handleInputChange}
-                        />
-                      </FormGroup>
-                      <FormGroup>
-                        <Input
-                          type="password"
-                          placeholder="Password"
-                          name="password"
-                          onChange={this.handleInputChange}
-                        />
-                      </FormGroup>
-                      <FormGroup>
-                        <Input
-                          type="confirmpassword"
-                          placeholder="Confirm Password"
-                          name="confirmpassword"
-                          onChange={this.handleInputChange}
-                        />
-                      </FormGroup>
-                      <div className="error-message">
-                        {" "}
-                        {this.state.isValid ? "" : this.state.errorMsg}{" "}
-                      </div>
-                      <FormGroup>
-                        <Input type="select" name="select" id="profile-type">
-                          <option>Profile Type...</option>
-                          <option>Contractor</option>
-                          <option>Client</option>
-                        </Input>
-                      </FormGroup>
-                    </div>
-                    <Button block color="info">
-                      <span className="trade-gothic__container">REGISTER</span>
-                    </Button>
-                    <div className="center-text">
-                    <div className="text-center">
-										Already have an account? <a href="/login">
-                        <div className="sign-in-text trade-gothic__container">
-                          SIGN IN
+                <div id="loginform">
+                  <div className="logo-container">
+                    <span className="db">{/* <img className="img-logo" src={img1} alt="uptrade log" /> */}</span>
+                  </div>
+                  <div className="welcome-quote">{selectedQuote}</div>
+                  <Row>
+                    <Col xs="12">
+                      <Form className="form-material mt-3 login-form" onSubmit={this.handleSubmit}>
+                        <div className="input-container">
+                          <FormGroup>
+                            <Input type="email" placeholder="Email" name="email" onChange={this.handleInputChange} />
+                          </FormGroup>
+                          <FormGroup>
+                            <Input
+                              type="password"
+                              placeholder="Password"
+                              name="password"
+                              onChange={this.handleInputChange}
+                            />
+                          </FormGroup>
+                          <FormGroup>
+                            <Input
+                              type="confirmpassword"
+                              placeholder="Confirm Password"
+                              name="confirmpassword"
+                              onChange={this.handleInputChange}
+                            />
+                          </FormGroup>
+                          <div className="error-message"> {this.state.isValid ? '' : this.state.errorMsg} </div>
+                          <FormGroup>
+                            <Input type="select" name="profileType" id="profileType" onChange={this.handleInputChange}>
+                              <option>Profile Type...</option>
+                              <option>Contractor</option>
+                              <option>Client</option>
+                            </Input>
+                          </FormGroup>
                         </div>
-                      </a>
-									</div>
-                     
-                      <Link to="/forgot-password">
-                        <div className="forgot-password-text trade-gothic__container">
-                          Forgot Password?
+                        <Button block color="info">
+                          <span className="trade-gothic__container">REGISTER</span>
+                        </Button>
+                        <div className="center-text">
+                          <div className="text-center">
+                            Already have an account?{' '}
+                            <a href="/login">
+                              <div className="sign-in-text trade-gothic__container">SIGN IN</div>
+                            </a>
+                          </div>
+
+                          <Link to="/forgot-password">
+                            <div className="forgot-password-text trade-gothic__container">Forgot Password?</div>
+                          </Link>
                         </div>
-                      </Link>
-                    </div>
-                  </Form>
-                </Col>
-              </Row>
-            </div>
-            </CardBody></Card> </div>
+                      </Form>
+                    </Col>
+                  </Row>
+                </div>
+              </CardBody>
+            </Card>{' '}
+          </div>
         </div>
       </div>
     );
