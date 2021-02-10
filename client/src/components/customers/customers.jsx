@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import "./customers.css";
-import api from "../../api/api.js";
-import Header from "../header/header";
+import React, { Component } from 'react';
+import './customers.css';
+import api from '../../api/api.js';
+import Header from '../header/header';
 
 class Customers extends React.Component {
   constructor() {
     super();
     this.state = {
       customers: [],
+      users: [],
     };
   }
 
   componentDidMount() {
-
     api
       .getCustomers()
       .then((res) => {
@@ -23,12 +23,19 @@ class Customers extends React.Component {
         this.setState({ customers: [] });
       });
 
-   
+    api
+      .getUsers()
+      .then((res) => {
+        this.setState({ users: res && res.data });
+      })
+      .catch((err) => {
+        console.log('err', err);
+        this.setState({ users: [] });
+      });
   }
 
   render() {
     return (
-      
       <div>
         <Header module="unauthenticated"></Header>
       </div>
