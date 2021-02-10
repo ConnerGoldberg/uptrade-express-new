@@ -1,4 +1,5 @@
 import dbService from '../db/dbService';
+import { getUserByEmail, getUsers } from '../services/queries/userQueries';
 
 export const customersController = (req, res) => {
   const customers = [
@@ -11,7 +12,6 @@ export const customersController = (req, res) => {
 };
 
 export const userController = (req, res) => {
-  const db = dbService.getDbServiceInstance();
-  const users = db.getUsers();
+  const users = getUsers();
   users.then((data) => res.send({ data: data })).catch((err) => console.log(err));
 };
