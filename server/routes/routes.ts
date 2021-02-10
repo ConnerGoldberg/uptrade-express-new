@@ -1,10 +1,12 @@
 import * as express from 'express';
-import { userController, customersController } from '../controllers/userController';
+import { allUsers, customersController, userById } from '../controllers/userController';
 import { register } from '../controllers/authController';
 
 const router = express.Router();
 
-router.get('/api/users', userController);
+router.get('/api/users', allUsers);
+
+router.get('/api/user/:id', userById);
 
 router.post('/api/register', register);
 

@@ -1,5 +1,4 @@
-import dbService from '../db/dbService';
-import { getUserByEmail, getUsers } from '../services/queries/userQueries';
+import { getUserByEmail, getUsers, getUserById } from '../services/queries/userQueries';
 
 export const customersController = (req, res) => {
   const customers = [
@@ -11,7 +10,13 @@ export const customersController = (req, res) => {
   res.send(customers);
 };
 
-export const userController = (req, res) => {
+export const allUsers = (req, res) => {
   const users = getUsers();
+  users.then((data) => res.send({ data: data })).catch((err) => console.log(err));
+};
+
+export const userById = (req, res) => {
+  const id = req.params?.id;
+  const users = getUserById(id);
   users.then((data) => res.send({ data: data })).catch((err) => console.log(err));
 };
