@@ -1,4 +1,5 @@
 import React from 'react';
+import bcryptjs from 'bcryptjs';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import {
@@ -16,6 +17,7 @@ import {
   DropdownItem,
 } from 'reactstrap';
 import Header from '../../../components/header/header';
+import api from '../../../lib/api';
 import './register.css';
 
 const sidebarBackground = {
@@ -29,6 +31,7 @@ const selectedQuote = quoteList[Math.floor(Math.random() * quoteList.length)];
 
 class Register extends React.Component {
   state = {
+    username: '',
     email: '',
     password: '',
     confirmpassword: '',
@@ -39,12 +42,26 @@ class Register extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { email, password } = this.state;
-    //TODO: handle login
+
+    this.props.history.push('/login');
+    const data = this.state;
+    const salt = bcryptjs.genSaltSync(5);
+    data.password = bcryptjs.hashSync(data.password, salt);
+    data.confirmpassword = data.password;
+    console.log(data);
+    api
+      .register(data)
+      .then((res) => {})
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   handleInputChange = (e) => {
     const { name, value } = e.target;
+    if (name.includes('email')) {
+      this.setState({ [name]: value, username: value });
+    }
     this.setState({ [name]: value });
   };
 
@@ -89,7 +106,7 @@ class Register extends React.Component {
                           </FormGroup>
                           <FormGroup>
                             <Input
-                              type="confirmpassword"
+                              type="password"
                               placeholder="Confirm Password"
                               name="confirmpassword"
                               onChange={this.handleInputChange}

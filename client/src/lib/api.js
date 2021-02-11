@@ -6,6 +6,10 @@ import { encodeCookie, decodeCookie } from './cookieParser';
 const _getCustomersRequest = cancelableRequest('get');
 const _getUsersRequest = cancelableRequest('get');
 
+export const register = (data) => {
+  return axios.post('/api/register', data);
+};
+
 export const login = ({ email, password }) => {
   return axios
     .post('/login', {
@@ -41,4 +45,4 @@ export const getCustomers = () => {
 export const getUsers = () => {
   return _getUsersRequest('/api/users');
 };
-export default { login, logout, getCustomers, getUsers };
+export default { login, logout, getCustomers, getUsers, register };

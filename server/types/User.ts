@@ -4,4 +4,5 @@ export type User = {
   password: string;
   email: string;
   verified: number;
+  role_id: number;
 };

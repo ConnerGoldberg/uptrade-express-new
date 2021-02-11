@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './customers.css';
-import api from '../../api/api.js';
+import api from '../../lib/api.js';
 import Header from '../header/header';
 
 class Customers extends React.Component {
