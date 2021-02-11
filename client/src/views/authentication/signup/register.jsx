@@ -45,10 +45,6 @@ class Register extends React.Component {
 
     this.props.history.push('/login');
     const data = this.state;
-    const salt = bcryptjs.genSaltSync(5);
-    data.password = bcryptjs.hashSync(data.password, salt);
-    data.confirmpassword = data.password;
-    console.log(data);
     api
       .register(data)
       .then((res) => {})

@@ -39,7 +39,7 @@ export async function addUser(user: Partial<User>, role: string): Promise<void> 
         const updatedUser: Partial<User> = user;
         updatedUser.id = results.insertId;
         updatedUser.password = '***';
-        console.log(`User successfully added ${updatedUser}`);
+        console.log(`User successfully added ${JSON.stringify(updatedUser)}`);
       });
     });
   } catch (e) {

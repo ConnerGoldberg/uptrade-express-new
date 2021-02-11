@@ -1,8 +1,10 @@
 import React from 'react';
+import bcryptjs from 'bcryptjs';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { Form, FormGroup, Button, Col, Input, Row, Card, CardBody } from 'reactstrap';
 import Header from '../../../components/header/header';
+import api from '../../../lib/api';
 
 import './login.css';
 
@@ -25,7 +27,7 @@ class Login extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const { email, password } = this.state;
-    //TODO: handle login
+    api.login({ email, password });
   };
 
   handleInputChange = (e) => {

@@ -12,7 +12,7 @@ export const register = (data) => {
 
 export const login = ({ email, password }) => {
   return axios
-    .post('/login', {
+    .post('/api/login', {
       email,
       password,
     })
