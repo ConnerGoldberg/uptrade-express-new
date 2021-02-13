@@ -28,7 +28,10 @@ class Login extends React.Component {
     event.preventDefault();
     const { email, password } = this.state;
     const hash = CryptoJS.HmacSHA1(password, email + process.env.salt).toString();
-    api.login({ email, password: hash });
+    const loggedInUser = api.login({ email, password: hash });
+    if (loggedInUser) {
+      console.log('Successfully Logged In As: ', JSON.stringify(loggedInUser));
+    }
   };
 
   handleInputChange = (e) => {

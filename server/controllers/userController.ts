@@ -18,5 +18,5 @@ export const allUsers = (req, res) => {
 export const userById = (req, res) => {
   const id = req.params?.id;
   const users = getUserById(id);
-  users.then((data) => res.send({ data: data })).catch((err) => console.log(err));
+  users.then((data) => res.send(data)).catch((err) => console.log(err));
 };

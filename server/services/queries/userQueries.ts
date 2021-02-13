@@ -18,7 +18,7 @@ export async function getUserByEmail(email: string): Promise<User> {
 
 export async function getUserById(id: number): Promise<User> {
   try {
-    const columns = ['id', 'username', 'password', 'email', 'verified'];
+    const columns = ['id', 'username', 'email', 'verified'];
     const getUserInformationQuery = `SELECT ${columns.toString()} from users where id =:id`;
     const [[userInformationQueryResponse]]: [[User]] = (await db.execute(getUserInformationQuery, { id })) as [[User]];
     return userInformationQueryResponse;

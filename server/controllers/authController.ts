@@ -1,3 +1,4 @@
+import * as jwt from 'jsonwebtoken';
 import { addUser } from '../services/commands/userCommands';
 import { getUserByEmail } from '../services/queries/userQueries';
 import { User } from '../types/User';
@@ -29,7 +30,15 @@ export async function login(req, res) {
     if (result) {
       console.log(`Successfully logged in as ${registeredUser.email}`);
       bcrypt.hash(registeredUser.password, 5, function (err, hash) {
-        res.send({ token: hash, message: 'Login Successful' });
+        const accessToken = `Bearer ${jwt.sign(
+          { username: registeredUser.username, role: registeredUser.role_id },
+          hash,
+        )}`;
+        //TODO: save accessToken to the login tokens
+        res
+          .header('Authorization', accessToken)
+          .set('Access-Control-Expose-Headers', 'Authorization')
+          .send({ token: accessToken, message: 'Login Successful', userId: registeredUser.id });
       });
     } else {
       res.status(500).send({ message: 'Invalid Password' });

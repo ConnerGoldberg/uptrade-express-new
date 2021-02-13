@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { NavbarBrand, Collapse, Row, Nav, Button, Navbar, NavbarToggler, ButtonGroup } from 'reactstrap';
+import api from '../../lib/api';
 import history from '../../history';
 import logo from '../../assets/OldLogo.jpg';
 import './header.css';
@@ -14,7 +15,7 @@ class Header extends React.Component {
   }
 
   handleLogout = () => {
-    console.log('TODO: logging out');
+    api.logout();
   };
 
   render() {
