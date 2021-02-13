@@ -17,8 +17,8 @@ export async function getPasswordTokenByUserId(id: number, authToken: string): P
   try {
     const columns = ['id', 'token', 'user_id'];
     const query = `SELECT ${columns.toString()} from password_tokens WHERE user_id =:id`;
-    const [PasswordToken]: [PasswordToken] = (await db.query(true, authToken, query, { id }, columns)) as [
-      PasswordToken,
+    const [[PasswordToken]]: [[PasswordToken]] = (await db.query(true, authToken, query, { id }, columns)) as [
+      [PasswordToken],
     ];
     return PasswordToken;
   } catch (e) {

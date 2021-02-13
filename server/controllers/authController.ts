@@ -25,16 +25,14 @@ export async function login(req, res) {
   try {
     const user: Partial<User> = (({ username, email, password }) => ({ username, email, password }))(req.body);
     const registeredUser: User = (await getUserByEmail(user?.email)) as User;
-    console.log('retrieving user: ', registeredUser.password);
-    console.log(user.password);
     const result = bcrypt.compareSync(user?.password, registeredUser.password);
     if (result) {
-      console.log('worked');
+      console.log(`Successfully logged in as ${registeredUser.email}`);
       bcrypt.hash(registeredUser.password, 5, function (err, hash) {
-        res.send({ token: hash });
+        res.send({ token: hash, message: 'Login Successful' });
       });
     } else {
-      console.log('invalid password');
+      res.status(500).send({ message: 'Invalid Password' });
     }
   } catch (e) {
     console.log(`Error authenticating user ${e.message}`);

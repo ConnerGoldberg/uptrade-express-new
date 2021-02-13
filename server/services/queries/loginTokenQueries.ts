@@ -17,7 +17,7 @@ export async function getLoginTokenByUserId(id: number, authToken: string): Prom
   try {
     const columns = ['id', 'token', 'user_id'];
     const query = `SELECT ${columns.toString()} from login_tokens WHERE user_id =:id`;
-    const [loginToken]: [LoginToken] = (await db.query(true, authToken, query, { id }, columns)) as [LoginToken];
+    const [[loginToken]]: [[LoginToken]] = (await db.query(true, authToken, query, { id }, columns)) as [[LoginToken]];
     return loginToken;
   } catch (e) {
     throw new Error(`Could not get token by User ID. Reason: ${e as string}`);

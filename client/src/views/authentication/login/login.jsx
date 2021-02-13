@@ -1,5 +1,5 @@
 import React from 'react';
-import bcryptjs from 'bcryptjs';
+import CryptoJS from 'crypto-js';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { Form, FormGroup, Button, Col, Input, Row, Card, CardBody } from 'reactstrap';
@@ -27,7 +27,8 @@ class Login extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const { email, password } = this.state;
-    api.login({ email, password });
+    const hash = CryptoJS.HmacSHA1(password, email + process.env.salt).toString();
+    api.login({ email, password: hash });
   };
 
   handleInputChange = (e) => {

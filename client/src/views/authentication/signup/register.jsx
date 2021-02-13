@@ -1,5 +1,5 @@
 import React from 'react';
-import bcryptjs from 'bcryptjs';
+import CryptoJS from 'crypto-js';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import {
@@ -44,7 +44,10 @@ class Register extends React.Component {
     event.preventDefault();
 
     this.props.history.push('/login');
-    const data = this.state;
+    let data = this.state;
+    // const wordArr =
+    data.password = CryptoJS.HmacSHA1(data.password, data.email + process.env.salt).toString();
+    data.confirmpassword = data.password;
     api
       .register(data)
       .then((res) => {})
