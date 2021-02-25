@@ -4,7 +4,7 @@ import { LoginToken } from '../../types/LoginToken';
 export async function getLoginTokenById(id: number): Promise<LoginToken> {
   try {
     const query = `SELECT id, token, user_id from login_tokens WHERE id = :id`;
-    const [[loginToken]]: [[LoginToken]] = (await db.query(false, query, {
+    const [[loginToken]]: [[LoginToken]] = (await db.query(query, {
       id,
     })) as [[LoginToken]];
     return loginToken;
@@ -17,7 +17,7 @@ export async function getLoginTokenByUserId(id: number, authToken: string): Prom
   try {
     const columns = ['id', 'token', 'user_id'];
     const query = `SELECT ${columns.toString()} from login_tokens WHERE user_id =:id`;
-    const [[loginToken]]: [[LoginToken]] = (await db.query(true, authToken, query, { id }, columns)) as [[LoginToken]];
+    const [[loginToken]]: [[LoginToken]] = (await db.query(authToken, query, { id }, columns)) as [[LoginToken]];
     return loginToken;
   } catch (e) {
     throw new Error(`Could not get token by User ID. Reason: ${e as string}`);
@@ -26,8 +26,8 @@ export async function getLoginTokenByUserId(id: number, authToken: string): Prom
 
 export async function getLoginTokenByToken(token: string): Promise<LoginToken> {
   try {
-    const query = `SELECT id, token, user_id from login_tokens WHERE token = :token`;
-    const [[loginToken]]: [[LoginToken]] = (await db.query(true, query, {
+    const query = `SELECT id, token, user_id from login_tokens WHERE token =:token`;
+    const [[loginToken]]: [[LoginToken]] = (await db.query(query, {
       token,
     })) as [[LoginToken]];
     return loginToken;

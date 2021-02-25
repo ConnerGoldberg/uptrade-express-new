@@ -3,7 +3,7 @@ import db from '../../db/dbConnect';
 
 export async function getUserByEmail(email: string): Promise<User> {
   try {
-    const columns = ['id', 'username', 'password', 'email', 'verified'];
+    const columns = ['id', 'username', 'password', 'email', 'verified', 'role_id'];
     const getUserInformationQuery = `SELECT ${columns.toString()} from users where email =:email`;
     const [[userInformationQueryResponse]]: [[User]] = (await db.execute(getUserInformationQuery, { email })) as [
       [User],
@@ -18,7 +18,7 @@ export async function getUserByEmail(email: string): Promise<User> {
 
 export async function getUserById(id: number): Promise<User> {
   try {
-    const columns = ['id', 'username', 'email', 'verified'];
+    const columns = ['id', 'username', 'email', 'verified', 'role_id'];
     const getUserInformationQuery = `SELECT ${columns.toString()} from users where id =:id`;
     const [[userInformationQueryResponse]]: [[User]] = (await db.execute(getUserInformationQuery, { id })) as [[User]];
     return userInformationQueryResponse;

@@ -9,6 +9,7 @@ class Customers extends React.Component {
     this.state = {
       customers: [],
       users: [],
+      user: {},
     };
   }
 
@@ -21,16 +22,6 @@ class Customers extends React.Component {
       .catch((err) => {
         console.log('err', err);
         this.setState({ customers: [] });
-      });
-
-    api
-      .getUsers()
-      .then((res) => {
-        this.setState({ users: res && res.data });
-      })
-      .catch((err) => {
-        console.log('err', err);
-        this.setState({ users: [] });
       });
   }
 

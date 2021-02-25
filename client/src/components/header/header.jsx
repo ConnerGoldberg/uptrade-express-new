@@ -1,78 +1,65 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavbarBrand, Collapse, Row, Nav, Button, Navbar, NavbarToggler, ButtonGroup } from 'reactstrap';
-import api from '../../lib/api';
-import history from '../../history';
+import { logOut } from '../../actions/auth/authActions';
 import logo from '../../assets/OldLogo.jpg';
 import './header.css';
-class Header extends React.Component {
-  constructor(props) {
-    super(props);
+const Header = ({ module, data, ...attributes }) => {
+  // Redux Selectors
+  const user = useSelector((state) => state.auth.user);
+  console.log('user comp', user);
+  // Redux Dispatch
+  const dispatch = useDispatch();
+  const doLogout = useCallback((user) => dispatch(logOut(user)), [dispatch]);
 
-    this.state = {
-      isOpen: false,
-    };
-  }
-
-  handleLogout = () => {
-    api.logout();
-  };
-
-  render() {
-    const { data, module } = this.props;
-
-    return (
-      <div>
-        <header className="topbar">
-          <Navbar className="navbarbg" expand="md">
-            <NavbarBrand href="/">
-              <img src={logo} alt="logo" />
-            </NavbarBrand>
-            {module === 'authenticated' ? (
-              <Nav className="ml-auto signupNav" navbar>
-                <Row>
-                  {' '}
-                  <p className="centered"> Welcome {data.user.fName} </p>{' '}
-                  <Button outline color="secondary" size="lg">
+  return (
+    <div>
+      <header className="topbar">
+        <Navbar className="navbarbg" expand="md">
+          <NavbarBrand href="/">
+            <img src={logo} alt="logo" />
+          </NavbarBrand>
+          {module === 'authenticated' ? (
+            <Nav className="ml-auto signupNav" navbar>
+              <Row>
+                {' '}
+                <p className="centered"> Welcome {user.email} </p>{' '}
+                <Link
+                  className="link"
+                  to="/"
+                  onClick={() => {
+                    doLogout(user);
+                  }}
+                >
+                  <Button outline color="secondary" size="md" className="signup-btn">
                     Logout
                   </Button>{' '}
-                </Row>
-              </Nav>
-            ) : (
-              <Nav className="ml-auto signupNav" navbar>
-                <Row>
-                  <p className="centered"> Already have an account? </p>
+                </Link>
+              </Row>
+            </Nav>
+          ) : (
+            <Nav className="ml-auto signupNav" navbar>
+              <Row>
+                <p className="centered"> Already have an account? </p>
 
-                  <Link
-                    className="link"
-                    to="/login"
-                    onClick={() => {
-                      history.push('/login');
-                    }}
-                  >
-                    <Button outline color="info" size="lg" className="signup-btn">
-                      Log In{' '}
-                    </Button>
-                  </Link>
+                <a href="/login">
+                  <Button outline color="info" size="lg" className="signup-btn">
+                    Log In{' '}
+                  </Button>
+                </a>
 
-                  <Link
-                    className="link"
-                    to="/signup"
-                    onClick={() => {
-                      history.push('/signup');
-                    }}
-                  >
-                    <Button outline color="secondary" size="lg">
-                      Sign Up
-                    </Button>
-                  </Link>
-                </Row>
-              </Nav>
-            )}
-          </Navbar>
-        </header>
-      </div>
-    );
-  }
-}
+                <a href="/signup">
+                  <Button outline color="secondary" size="lg">
+                    Sign Up
+                  </Button>
+                </a>
+              </Row>
+            </Nav>
+          )}
+        </Navbar>
+      </header>
+    </div>
+  );
+};
 export default Header;

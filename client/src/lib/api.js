@@ -1,59 +1,53 @@
 import axios from 'axios';
 import history from './history';
+import { authenticate } from '../actions/auth/authActions';
 import { cancelableRequest } from './cancelableRequest';
 import { encodeCookie, decodeCookie } from './cookieParser';
 
 const _getCustomersRequest = cancelableRequest('get');
 const _getUsersRequest = cancelableRequest('get');
+const _getUserRequest = cancelableRequest('get');
+
+const getLoggedInUser = async () => {
+  const cookie = decodeCookie();
+  const authCookie = (cookie && cookie.token) || '';
+  const res = await axios.get(`/api/authenticate/user`, {
+    headers: {
+      Authorization: authCookie,
+    },
+  });
+
+  const user = res.data;
+  window.localStorage.setItem('user', JSON.stringify(user));
+  return user;
+};
 
 export const register = (data) => {
   return axios.post('/api/register', data);
 };
 
-export const getLoggedInUser = (userId) => {
-  const authCookie = decodeCookie();
-  if (authCookie && authCookie.token !== '' && authCookie.token !== undefined) {
-    axios.get(`/api/user/${userId}`).then((res) => {
-      console.log('user', res.data);
-      const user = res.data;
-      window.localStorage.setItem('user', JSON.stringify(user));
-      return user;
-    });
-  }
-};
-
-export const login = ({ email, password }) => {
-  axios
-    .post('/api/login', {
+export const login = async ({ email, password }) => {
+  try {
+    const res = await axios.post('/api/login', {
       email,
       password,
-    })
-    .then((res) => {
-      console.log('token: ', res.headers.authorization, res.data);
-      encodeCookie({
-        key: 'token',
-        value: res.headers && res.headers.authorization,
-      });
-      const user = getLoggedInUser(res.data.userId);
-      return user;
     });
+    encodeCookie({
+      key: 'token',
+      value: res.headers && res.headers.authorization,
+    });
+  } catch (err) {
+    console.log('Error while logging in', err);
+    history.push('/login');
+  }
+  return getLoggedInUser();
 };
 
-export const logout = () => {
-  axios
-    .post('/logout')
-    .then((res) => {
-      encodeCookie({ key: 'token', value: undefined });
-      history.push('/login');
-    })
-    .catch((err) => {
-      console.log('Error while logging out');
-      history.push('/login');
-    });
-};
+export const logout = async ({ id }) => {
+  await axios.post('/api/logout', { id });
+  encodeCookie({ key: 'token', value: undefined });
+  history.push('/login');
 
-export const logOut = () => {
-  encodeCookie({ key: 'token', value: '' });
   window.localStorage.removeItem('user');
 };
 
@@ -64,4 +58,17 @@ export const getCustomers = () => {
 export const getUsers = () => {
   return _getUsersRequest('/api/users');
 };
-export default { login, logout, getCustomers, getUsers, register };
+
+export const getUserById = (userId) => {
+  const authCookie = decodeCookie();
+  if (authCookie && authCookie.token !== '' && authCookie.token !== undefined) {
+    return _getUserRequest(`/api/user/${userId}`).then((res) => {
+      console.log('user', res.data);
+      const user = res.data;
+      window.localStorage.setItem('user', JSON.stringify(user));
+    });
+  } else {
+    return undefined;
+  }
+};
+export default { login, logout, getCustomers, getUsers, register, getLoggedInUser, getUserById };

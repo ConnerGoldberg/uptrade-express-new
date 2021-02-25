@@ -4,9 +4,6 @@
   overflow: hidden;
   max-height: 450px; }
 
-.box a:hover {
-  text-decoration: none; }
-
 .box {
   float: left;
   text-align: center;

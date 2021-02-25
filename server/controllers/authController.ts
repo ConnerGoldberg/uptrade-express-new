@@ -1,6 +1,8 @@
 import * as jwt from 'jsonwebtoken';
 import { addUser } from '../services/commands/userCommands';
+import { addLoginToken, removeLoginTokenByUserId } from '../services/commands/loginTokenCommands';
 import { getUserByEmail } from '../services/queries/userQueries';
+import { getLoginTokenByToken } from '../services/queries/loginTokenQueries';
 import { User } from '../types/User';
 import * as bcrypt from 'bcrypt';
 
@@ -29,17 +31,28 @@ export async function login(req, res) {
     const result = bcrypt.compareSync(user?.password, registeredUser.password);
     if (result) {
       console.log(`Successfully logged in as ${registeredUser.email}`);
-      bcrypt.hash(registeredUser.password, 5, function (err, hash) {
-        const accessToken = `Bearer ${jwt.sign(
-          { username: registeredUser.username, role: registeredUser.role_id },
-          hash,
-        )}`;
-        //TODO: save accessToken to the login tokens
-        res
-          .header('Authorization', accessToken)
-          .set('Access-Control-Expose-Headers', 'Authorization')
-          .send({ token: accessToken, message: 'Login Successful', userId: registeredUser.id });
-      });
+      const accessToken = jwt.sign(
+        {
+          user: {
+            email: registeredUser.email,
+            id: registeredUser.id,
+            verified: registeredUser.verified,
+            role_id: registeredUser.role_id,
+          },
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+      );
+      addLoginToken({ user_id: registeredUser.id, token: accessToken.toString() });
+      res
+        .header('Authorization', `Bearer ${accessToken}`)
+        .set('Access-Control-Expose-Headers', 'Authorization')
+        .status(200)
+        .send({
+          token: `Bearer ${accessToken}`,
+          authenticated: !!result,
+          message: 'Login Successful',
+          userId: registeredUser.id,
+        });
     } else {
       res.status(500).send({ message: 'Invalid Password' });
     }
@@ -47,4 +60,25 @@ export async function login(req, res) {
     console.log(`Error authenticating user ${e.message}`);
     res.status(500).send('Error authenticating user');
   }
+}
+
+export const authenticate = (req, res, next) => {
+  const tokenHeader = req.headers.authorization;
+  const loginToken = tokenHeader && tokenHeader.split(' ')[1];
+  if (!loginToken) return res.status(401).send('Authentication required.'); // Access denied.
+  jwt.verify(loginToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.status(401).send('Authentication required.');
+    req.data = user;
+    next();
+  });
+};
+
+export const getUserDetail = (req, res) => {
+  return res.status(200).send(req.data.user);
+};
+
+export async function logout(req, res) {
+  const userId = req.body.id;
+  await removeLoginTokenByUserId(userId);
+  res.status(200).send({ message: 'Successfully Logged Out' });
 }
