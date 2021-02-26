@@ -1,0 +1,21 @@
+.container {
+  margin-top: 5%;
+  width: 80%;
+  overflow: hidden;
+  max-height: 1000px;
+  text-align: center;
+  align-items: center;
+  margin-bottom: auto; }
+
+.box {
+  float: left;
+  text-align: center;
+  width: 33%;
+  padding: 10px;
+  max-height: 100%; }
+
+.box img {
+  width: 90px; }
+
+.emptyDiv {
+  margin-top: 500px; }
