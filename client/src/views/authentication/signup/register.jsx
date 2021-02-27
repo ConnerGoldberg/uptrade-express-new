@@ -47,15 +47,14 @@ const Register = () => {
     if (isAuthenticated) {
       history.push('/contractors/home');
     }
-  }, []);
+  }, [isAuthenticated]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     this.props.history.push('/login');
-    let data = this.state;
-    // const wordArr =
-    data.password = CryptoJS.HmacSHA1(data.password, data.email + process.env.salt).toString();
+    let data = {};
+    data.password = CryptoJS.HmacSHA1(password, email + process.env.salt).toString();
     data.confirmpassword = data.password;
     api
       .register(data)

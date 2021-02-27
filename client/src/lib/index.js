@@ -3,18 +3,15 @@ import { decodeCookie } from './cookieParser';
 
 const apiDomain = process.env.REACT_APP_API_DOMAIN;
 
-
 axios.defaults.baseURL = apiDomain;
 axios.defaults.headers.common['Authorization'] = '';
 
-axios.interceptors.request.use(function(config) {
-   const cookie = decodeCookie();
-   config.headers = {
-       Authorization: cookie && cookie.token || '',
-   };
-   return config;
+axios.interceptors.request.use(function (config) {
+  const cookie = decodeCookie();
+  console.log('Cookie', cookie);
+  config.headers = {
+    Authorization: (cookie && cookie.token) || '',
+  };
+  return config;
 });
-export {
-    apiDomain    
-};
-
+export { apiDomain };

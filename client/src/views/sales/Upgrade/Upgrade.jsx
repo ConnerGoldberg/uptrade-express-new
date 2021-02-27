@@ -76,7 +76,7 @@ const Upgrade = () => {
                   <img src={tools} />
                   <h3>Premium Enterprise</h3>
                 </a>
-                <p>$100/ month per user</p>
+                <p>$100/month per user</p>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque explicabo delectus possimus ducimus
                   autem. Sapiente facilis animi, quas laboriosam officia officiis. Esse temporibus sequi iste inventore

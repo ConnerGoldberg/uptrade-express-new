@@ -1,12 +1,12 @@
 import axios from 'axios';
 import history from './history';
-import { authenticate } from '../actions/auth/authActions';
 import { cancelableRequest } from './cancelableRequest';
 import { encodeCookie, decodeCookie } from './cookieParser';
 
 const _getCustomersRequest = cancelableRequest('get');
 const _getUsersRequest = cancelableRequest('get');
 const _getUserRequest = cancelableRequest('get');
+const _getProductRequest = cancelableRequest('get');
 
 const getLoggedInUser = async () => {
   const cookie = decodeCookie();
@@ -55,6 +55,10 @@ export const getCustomers = () => {
   return _getCustomersRequest('/api/customers');
 };
 
+export const getProductById = (productId) => {
+  return _getProductRequest(`/api/products/${productId}`);
+};
+
 export const getUsers = () => {
   return _getUsersRequest('/api/users');
 };
@@ -71,4 +75,26 @@ export const getUserById = (userId) => {
     return undefined;
   }
 };
-export default { login, logout, getCustomers, getUsers, register, getLoggedInUser, getUserById };
+
+export const getScalapayConfiguration = () => {
+  const authCookie = process.env.REACT_APP_SCALAPAY_SECRET;
+  if (authCookie) {
+    const res = axios.get(`/api/scalapay/configurations`, {
+      headers: {
+        Authorization: `Bearer ${authCookie}`,
+      },
+    });
+    return res;
+  }
+};
+
+export default {
+  login,
+  logout,
+  getCustomers,
+  getUsers,
+  register,
+  getLoggedInUser,
+  getProductById,
+  getScalapayConfiguration,
+};

@@ -1,0 +1,20 @@
+.footer {
+  background-color: #fcfcfd; }
+
+.accordion .card {
+  border: unset;
+  background: unset;
+  border-radius: unset; }
+  .accordion .card .card-header {
+    border-bottom: unset;
+    background-color: unset;
+    padding: unset; }
+  .accordion .card a {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: -0.01rem;
+    color: #1e202e; }
+
+a a:hover {
+  text-decoration: none; }
