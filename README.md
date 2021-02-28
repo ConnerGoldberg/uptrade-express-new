@@ -5,6 +5,21 @@
 ## Quick Start
 
 ```bash
+
+# Requirements
+Node.js v12.16.0 +
+Node Package Manager v6.13.4+
+MySQL
+.env /client
+.env
+
+# Create the .env file for /client
+
+# Create the .env file for ~
+
+# Import the schema and data provided within the MySQL Data Dump
+/server/db/scripts
+
 # Install dependencies for server
 npm install
 
@@ -24,6 +39,8 @@ npm run client
 ```
 
 ## App Info
+
+This application is an anemic demo which allows users to sign up for a subscription based service utilising JWT auth alongside with react, redux, axios, typescript express. Once you have signed up for an account, you can log into the account and purchase a subscription with scalapay. That concludes this demo.
 
 ### Author
 
