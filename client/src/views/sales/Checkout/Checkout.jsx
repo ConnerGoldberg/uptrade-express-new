@@ -16,6 +16,7 @@ import {
 } from 'reactstrap';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import history from '../../../lib/history';
 import api from '../../../lib/api';
 import Header from '../../../components/header/header';
@@ -140,12 +141,20 @@ const Checkout = ({ location }) => {
     purchaseOrder.merchantReference = merchantReference;
     purchaseOrder.taxAmount = { amount: amount ? (amount / 10).toFixed(2) : 0, currency: product.price?.currency };
 
-    api.orderWithScalapay(purchaseOrder).then((res) => {
-      if (res && res.data && res.data?.checkoutUrl) {
-        window.open(res.data.checkoutUrl, '_blank', 'noopener=yes,noreferrer=yes');
-      }
-    });
-    //submit the order
+    api
+      .orderWithScalapay(purchaseOrder)
+      .then((res) => {
+        if (res && res.data && res.data?.checkoutUrl) {
+          window.open(res.data.checkoutUrl, '_blank', 'noopener=yes,noreferrer=yes');
+          Swal.fire('Success', `Finalize your payment on scalapay: ${res.data.checkoutUrl}`, 'success');
+          setCheckout(false);
+        } else {
+          Swal.fire('Error', `Something went wrong when creating your order`, 'error');
+        }
+      })
+      .catch((err) => {
+        Swal.fire('Error', `Something went wrong when creating your order`, 'error');
+      });
   };
 
   return (

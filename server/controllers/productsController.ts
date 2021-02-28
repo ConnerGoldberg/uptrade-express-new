@@ -58,9 +58,10 @@ export const orderWithScalapay = async (req, res) => {
       })
       .catch((err) => {
         console.log(err);
-        res.status(500);
+        res.status(500).send(err);
       });
   } catch (e) {
     console.log(e.message);
+    res.status(500).send(e.message);
   }
 };
