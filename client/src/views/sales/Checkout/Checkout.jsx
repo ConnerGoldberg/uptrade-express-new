@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import {
+  Alert,
   Col,
   Card,
   CardBody,
@@ -26,6 +27,7 @@ import forum from '../../../assets/forum.png';
 import family from '../../../assets/family.png';
 import tools from '../../../assets/tools.png';
 import './Checkout.css';
+import { validateLocaleAndSetLanguage } from 'typescript';
 
 const Checkout = ({ location }) => {
   const user = useSelector((state) => state.auth?.user);
@@ -62,6 +64,9 @@ const Checkout = ({ location }) => {
     `${(moment().utc().toDate().getTime() / 1000).toString().split('.')[0]}-${user.id}-${productId}`,
   );
 
+  const [errored, setErrored] = useState(false);
+  const [countryCodeErrored, setCountryCodeErrored] = useState(false);
+
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const productId = params.get('id');
@@ -97,6 +102,30 @@ const Checkout = ({ location }) => {
       setCountryCode(shippingCountryCode);
     }
   }, [billingSameAsShippingAddress]);
+
+  const validatePurchaseOrder = (purchaseOrder) => {
+    if (product?.price?.currency?.toLowerCase() !== 'eur') {
+      return false;
+    }
+    if (countryCode.length > 2) {
+      setCountryCodeErrored(true);
+      return false;
+    }
+
+    return (
+      purchaseOrder.totalAmount.amount > 0 &&
+      purchaseOrder.consumer.surname.length &&
+      purchaseOrder.consumer.givenNames.length > 2 &&
+      purchaseOrder.consumer.phoneNumber.length &&
+      purchaseOrder.merchant &&
+      purchaseOrder.shipping.line1.length &&
+      purchaseOrder.shipping.postcode.length &&
+      purchaseOrder.shipping.suburb.length &&
+      purchaseOrder.shipping.countryCode.length &&
+      purchaseOrder.merchantReference &&
+      purchaseOrder.items.length
+    );
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -141,20 +170,25 @@ const Checkout = ({ location }) => {
     purchaseOrder.merchantReference = merchantReference;
     purchaseOrder.taxAmount = { amount: amount ? (amount / 10).toFixed(2) : 0, currency: product.price?.currency };
 
-    api
-      .orderWithScalapay(purchaseOrder)
-      .then((res) => {
-        if (res && res.data && res.data?.checkoutUrl) {
-          window.open(res.data.checkoutUrl, '_blank', 'noopener=yes,noreferrer=yes');
-          Swal.fire('Success', `Finalize your payment on scalapay: ${res.data.checkoutUrl}`, 'success');
-          setCheckout(false);
-        } else {
+    const isValid = validatePurchaseOrder(purchaseOrder);
+    setErrored(!isValid);
+
+    if (isValid) {
+      api
+        .orderWithScalapay(purchaseOrder)
+        .then((res) => {
+          if (res && res.data && res.data?.checkoutUrl) {
+            window.open(res.data.checkoutUrl, '_blank', 'noopener=yes,noreferrer=yes');
+            Swal.fire('Success', `Finalize your payment on scalapay: ${res.data.checkoutUrl}`, 'success');
+            setCheckout(false);
+          } else {
+            Swal.fire('Error', `Something went wrong when creating your order`, 'error');
+          }
+        })
+        .catch((err) => {
           Swal.fire('Error', `Something went wrong when creating your order`, 'error');
-        }
-      })
-      .catch((err) => {
-        Swal.fire('Error', `Something went wrong when creating your order`, 'error');
-      });
+        });
+    }
   };
 
   return (
@@ -302,7 +336,7 @@ const Checkout = ({ location }) => {
                 <div className="container">
                   <h5>You have selected to purchase our {product.name} package</h5>
                   <hr />
-                  <p>The total cost for this month is ${product.price.unit_amount}</p>
+                  <p>The total cost for this month is €{product.price.unit_amount}</p>
                   <Form onSubmit={handleSubmit}>
                     <Row>
                       <Col className="ml-3">
@@ -326,10 +360,11 @@ const Checkout = ({ location }) => {
                     <Row>
                       <Col xs="12" md="12" lg="6">
                         <FormGroup>
-                          <Label for="fName">First Name</Label>
+                          <Label for="fName">First Name *</Label>
                           <Input
                             type="text"
                             placeholder="First Name"
+                            style={{ borderColor: errored && !firstName.length ? 'red' : 'none' }}
                             name="fName"
                             onChange={(e) => {
                               setFirstName(e.target.value);
@@ -354,9 +389,10 @@ const Checkout = ({ location }) => {
                     <Row>
                       <Col xs="12" md="12" lg="12">
                         <FormGroup>
-                          <Label for="lName">Surname</Label>
+                          <Label for="lName">Surname *</Label>
                           <Input
                             type="text"
+                            style={{ borderColor: errored && !surname.length ? 'red' : 'none' }}
                             placeholder="Last Name"
                             name="lName"
                             onChange={(e) => {
@@ -369,10 +405,11 @@ const Checkout = ({ location }) => {
                     <Row>
                       <Col>
                         <FormGroup>
-                          <Label for="shipping-address">Address</Label>
+                          <Label for="shipping-address">Address *</Label>
                           <Input
                             type="text"
                             placeholder="Address Line 1"
+                            style={{ borderColor: errored && !shippingAddress.length ? 'red' : 'none' }}
                             name="shipping-address"
                             onChange={(e) => {
                               setShippingAddress(e.target.value);
@@ -385,10 +422,11 @@ const Checkout = ({ location }) => {
                     <Row>
                       <Col xs="12" md="12" lg="6">
                         <FormGroup>
-                          <Label for="shipping-suburb">Suburb</Label>
+                          <Label for="shipping-suburb">Suburb *</Label>
                           <Input
                             type="text"
                             placeholder="Suburb"
+                            style={{ borderColor: errored && !shippingSuburb.length ? 'red' : 'none' }}
                             name="shipping-suburb"
                             onChange={(e) => {
                               setShippingSuburb(e.target.value);
@@ -399,10 +437,11 @@ const Checkout = ({ location }) => {
                       </Col>
                       <Col xs="12" md="12" lg="6">
                         <FormGroup>
-                          <Label for="shipping-postCode">Post Code</Label>
+                          <Label for="shipping-postCode">Post Code *</Label>
                           <Input
                             type="text"
                             placeholder="Post Code"
+                            style={{ borderColor: errored && !shippingPostCode.length ? 'red' : 'none' }}
                             name="shipping-postCode"
                             onChange={(e) => {
                               setShippingPostCode(e.target.value);
@@ -415,9 +454,10 @@ const Checkout = ({ location }) => {
                     <Row>
                       <Col xs="12" md="12" lg="6">
                         <FormGroup>
-                          <Label for="phoneNumber">Phone Number</Label>
+                          <Label for="phoneNumber">Phone Number *</Label>
                           <Input
                             type="text"
+                            style={{ borderColor: errored && !phoneNumber.length ? 'red' : 'none' }}
                             placeholder="Phone Number"
                             name="phoneNumber"
                             onChange={(e) => {
@@ -428,11 +468,15 @@ const Checkout = ({ location }) => {
                       </Col>
                       <Col xs="12" md="12" lg="6">
                         <FormGroup>
-                          <Label for="shipping-countryCode">Country Code</Label>
+                          <Label for="shipping-countryCode">Country Code *</Label>
                           <Input
                             type="select"
                             name="shipping-countryCode"
                             id="shipping-countryCode"
+                            style={{
+                              borderColor:
+                                countryCodeErrored || (errored && !shippingCountryCode.length) ? 'red' : 'none',
+                            }}
                             onChange={(e) => {
                               setShippingCountryCode(e.target.value);
                               setCountryCode(e.target.value);
@@ -502,6 +546,7 @@ const Checkout = ({ location }) => {
                               <Input
                                 type="select"
                                 name="countryCode"
+                                style={{ borderColor: countryCodeErrored ? 'red' : 'none' }}
                                 id="countryCode"
                                 onChange={(e) => {
                                   setCountryCode(e.target.value);
@@ -520,6 +565,10 @@ const Checkout = ({ location }) => {
                         </Row>
                       </>
                     )}
+                    <Alert color="danger" isOpen={errored}>
+                      Please fill out all required fields
+                    </Alert>
+
                     <Row>
                       {' '}
                       <Col xs="6" md="6" lg="6">
