@@ -2,3 +2,4 @@
 package-lock.json 
 src/**/*.cs
 .env
+coverage/*
