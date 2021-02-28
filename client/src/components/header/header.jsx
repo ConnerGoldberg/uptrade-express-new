@@ -8,7 +8,6 @@ import './header.css';
 const Header = ({ module, data, ...attributes }) => {
   // Redux Selectors
   const user = useSelector((state) => state.auth.user);
-  console.log('user comp', user);
   // Redux Dispatch
   const dispatch = useDispatch();
   const doLogout = useCallback((user) => dispatch(logOut(user)), [dispatch]);

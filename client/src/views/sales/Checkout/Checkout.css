@@ -7,6 +7,15 @@
   align-items: center;
   margin-bottom: auto; }
 
+.order {
+  margin-top: 5%;
+  width: 80%;
+  overflow: hidden;
+  max-height: 1000px;
+  text-align: center;
+  align-items: center;
+  margin-bottom: auto; }
+
 .box {
   float: left;
   text-align: center;
@@ -19,3 +28,6 @@
 
 .emptyDiv {
   margin-top: 500px; }
+
+.checkout-btn {
+  margin-left: 5px; }

@@ -26,6 +26,17 @@ export const register = (data) => {
   return axios.post('/api/register', data);
 };
 
+export const orderWithScalapay = (data) => {
+  const authCookie = process.env.REACT_APP_SCALAPAY_SECRET;
+  if (authCookie) {
+    return axios.post('/api/scalapay/order', data, {
+      headers: {
+        Authorization: `Bearer ${authCookie}`,
+      },
+    });
+  }
+};
+
 export const login = async ({ email, password }) => {
   try {
     const res = await axios.post('/api/login', {
@@ -97,4 +108,5 @@ export default {
   getLoggedInUser,
   getProductById,
   getScalapayConfiguration,
+  orderWithScalapay,
 };

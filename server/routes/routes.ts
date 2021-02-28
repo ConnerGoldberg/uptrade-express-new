@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { allUsers, customersController, userById } from '../controllers/userController';
 import { register, login, authenticate, getUserDetail, logout } from '../controllers/authController';
-import { productById, getScalapayConfiguration } from '../controllers/productsController';
+import { productById, getScalapayConfiguration, orderWithScalapay } from '../controllers/productsController';
 
 const router = express.Router();
 
@@ -17,5 +17,6 @@ router.get('/api/customers', customersController);
 
 router.get('/api/products/:id', productById);
 router.get('/api/scalapay/configurations', getScalapayConfiguration);
+router.post('/api/scalapay/order', orderWithScalapay);
 
 module.exports = router;

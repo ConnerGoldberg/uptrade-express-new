@@ -11,9 +11,7 @@ import './Upgrade.css';
 
 const Upgrade = () => {
   const user = useSelector((state) => state.auth?.user);
-  useEffect(() => {
-    console.log('user', user);
-  }, []);
+  useEffect(() => {}, []);
   return (
     <React.Fragment>
       <Header module="authenticated" />
@@ -28,7 +26,7 @@ const Upgrade = () => {
                   <img src={forum} />
                   <h3>Community</h3>
                 </a>
-                <p>$20/month per user</p>
+                <p>€20/month per user</p>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque explicabo delectus possimus ducimus
                   autem. Sapiente facilis animi, quas laboriosam officia officiis. Esse temporibus sequi iste inventore
@@ -52,7 +50,7 @@ const Upgrade = () => {
                   <img src={family} />
                   <h3>Family</h3>
                 </a>
-                <p>$50/month per user</p>
+                <p>€50/month per user</p>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque explicabo delectus possimus ducimus
                   autem. Sapiente facilis animi, quas laboriosam officia officiis. Esse temporibus sequi iste inventore
@@ -76,7 +74,7 @@ const Upgrade = () => {
                   <img src={tools} />
                   <h3>Premium Enterprise</h3>
                 </a>
-                <p>$100/month per user</p>
+                <p>€100/month per user</p>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque explicabo delectus possimus ducimus
                   autem. Sapiente facilis animi, quas laboriosam officia officiis. Esse temporibus sequi iste inventore
