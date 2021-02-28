@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 import { getProductById } from '../services/queries/productQueries';
+import { addUserProductTransaction } from '../services/commands/productsCommands';
 import { Product } from '../types/Product';
 import { ScalaPayOrder } from '../types/ScalaPayOrder';
 
@@ -42,18 +43,45 @@ export const orderWithScalapay = async (req, res) => {
   try {
     const baseUrl = 'https://staging.api.scalapay.com/v2/orders';
     const tokenHeader = req.headers.authorization;
-    console.log('token', tokenHeader);
-    const scalapayOrderRequest: ScalaPayOrder = req.body;
-    console.log('json', JSON.stringify(scalapayOrderRequest));
+    const scalapayOrderRequest: Partial<ScalaPayOrder> = (({
+      totalAmount,
+      consumer,
+      merchantReference,
+      billing,
+      shipping,
+      items,
+      merchant,
+      taxAmount,
+    }) => ({
+      totalAmount,
+      consumer,
+      merchantReference,
+      billing,
+      shipping,
+      merchant,
+      taxAmount,
+      items: items.map((item) => ({
+        name: item.name,
+        category: item.category,
+        brand: item.brand,
+        gtin: item.gtin,
+        sku: item.sku,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+    }))(req.body);
+
     const response = fetch(baseUrl, {
       method: 'POST',
       body: JSON.stringify(scalapayOrderRequest),
       headers: { Authorization: tokenHeader, 'Content-Type': 'application/json' },
     });
-    console.log(await response);
     const data = (await response).json();
     data
-      .then((data) => {
+      .then(async (data) => {
+        let scalapayOrder = req.body;
+        scalapayOrder.token = data.token;
+        await addUserProductTransaction({ order: scalapayOrder });
         res.status(200).send(data);
       })
       .catch((err) => {

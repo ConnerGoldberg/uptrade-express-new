@@ -7,4 +7,5 @@ export type OrderItem = {
   sku: string;
   quantity: number;
   price: { amount: number; currency: string };
+  product_id: number;
 };

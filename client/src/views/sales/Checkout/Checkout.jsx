@@ -27,7 +27,6 @@ import forum from '../../../assets/forum.png';
 import family from '../../../assets/family.png';
 import tools from '../../../assets/tools.png';
 import './Checkout.css';
-import { validateLocaleAndSetLanguage } from 'typescript';
 
 const Checkout = ({ location }) => {
   const user = useSelector((state) => state.auth?.user);
@@ -43,6 +42,7 @@ const Checkout = ({ location }) => {
   const [gtin, setGtin] = useState(`123456789${productId}`);
   const [sku, setSku] = useState(`12341234${productId}`);
   const [brand, setBrand] = useState('uptrade');
+  const [paymentProviderId, setPaymentProviderId] = useState(1);
   //Scalapay Order Form
   const [phoneNumber, setPhoneNumber] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -164,11 +164,14 @@ const Checkout = ({ location }) => {
         sku: sku,
         quantity: quantity,
         price: { amount: amount, currency: product.price?.currency },
+        product_id: productId,
       },
     ];
     purchaseOrder.merchant = { redirectConfirmUrl: redirectConfirmUrl, redirectCancelUrl: redirectCancelUrl };
     purchaseOrder.merchantReference = merchantReference;
     purchaseOrder.taxAmount = { amount: amount ? (amount / 10).toFixed(2) : 0, currency: product.price?.currency };
+    purchaseOrder.user_id = user.id;
+    purchaseOrder.payment_provider_id = paymentProviderId;
 
     const isValid = validatePurchaseOrder(purchaseOrder);
     setErrored(!isValid);

@@ -10,8 +10,8 @@
 Node.js v12.16.0 +
 Node Package Manager v6.13.4+
 MySQL
-.env /client
-.env
+.env /client (api domain and scalapay secret)
+.env (Local database connection credentials, express port, and jwt secrets)
 
 # Create the .env file for /client
 

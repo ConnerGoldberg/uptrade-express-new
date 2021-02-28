@@ -2,6 +2,7 @@ import db from '../../db/dbConnect';
 import { Product } from '../../types/Product';
 import { Price } from '../../types/Price';
 import { DurationType } from '../../types/DurationType';
+import { PaymentProvider } from '../../types/PaymentProvider';
 
 export async function getProductById(id: number): Promise<Product> {
   try {
@@ -26,6 +27,22 @@ export async function getProductById(id: number): Promise<Product> {
     getProductInfoQueryResponse.price = getPriceInfoQueryResponse;
 
     return getProductInfoQueryResponse;
+  } catch (e) {
+    console.error('EXCEPTION: getProductById() -  ', e);
+    throw e;
+  }
+}
+
+export async function getPaymentProviderById(id: number): Promise<PaymentProvider> {
+  try {
+    const columns = ['id', 'provider'];
+
+    const getPaymentProviderQuery = `SELECT ${columns.toString()} from payment_providers where id =:id`;
+    const [[getPaymentProviderQueryResponse]]: [[PaymentProvider]] = (await db.execute(getPaymentProviderQuery, {
+      id,
+    })) as [[PaymentProvider]];
+
+    return getPaymentProviderQueryResponse;
   } catch (e) {
     console.error('EXCEPTION: getProductById() -  ', e);
     throw e;
