@@ -45,7 +45,7 @@ const Register = () => {
   useEffect(() => {
     console.log('navigate to home', isAuthenticated);
     if (isAuthenticated) {
-      history.push('/contractors/home');
+      history.push('/contractors/home'); // TODO: Add route handling based on role_id
     }
   }, [isAuthenticated]);
 

@@ -38,7 +38,7 @@ const Login = () => {
       setIsValid(false);
       setErrorMsg('Invalid username or password');
     } else {
-      history.push('/contractors/home'); // We've logged in, go to step 2
+      history.push('/contractors/home'); // TODO: Add route handling based on role_id
     }
   };
 
