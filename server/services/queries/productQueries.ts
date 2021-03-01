@@ -3,6 +3,7 @@ import { Product } from '../../types/Product';
 import { Price } from '../../types/Price';
 import { DurationType } from '../../types/DurationType';
 import { PaymentProvider } from '../../types/PaymentProvider';
+import { UserProductTransaction } from '../../types/UserProductTransaction';
 
 export async function getProductById(id: number): Promise<Product> {
   try {
@@ -44,7 +45,36 @@ export async function getPaymentProviderById(id: number): Promise<PaymentProvide
 
     return getPaymentProviderQueryResponse;
   } catch (e) {
-    console.error('EXCEPTION: getProductById() -  ', e);
+    console.error('EXCEPTION: getPaymentProviderById() -  ', e);
+    throw e;
+  }
+}
+
+export async function getUserProductTransactionByPaymentProviderRef(ref: string): Promise<UserProductTransaction> {
+  try {
+    const columns = [
+      'id',
+      'user_id',
+      'payment_provider_id',
+      'total_amount',
+      'discounted_amount',
+      'reference',
+      'payment_provider_reference',
+      'created_on',
+      'archived',
+    ];
+
+    const getUserProductTransactionQuery = `SELECT ${columns.toString()} from user_product_transaction where payment_provider_reference =:ref`;
+    const [[getUserProductTransactionQueryResponse]]: [[UserProductTransaction]] = (await db.execute(
+      getUserProductTransactionQuery,
+      {
+        ref,
+      },
+    )) as [[UserProductTransaction]];
+
+    return getUserProductTransactionQueryResponse;
+  } catch (e) {
+    console.error('EXCEPTION: getUserProductTransactionByPaymentProviderRef() -  ', e);
     throw e;
   }
 }

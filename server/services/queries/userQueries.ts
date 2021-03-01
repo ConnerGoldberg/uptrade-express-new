@@ -23,7 +23,7 @@ export async function getUserById(id: number): Promise<User> {
     const [[userInformationQueryResponse]]: [[User]] = (await db.execute(getUserInformationQuery, { id })) as [[User]];
     return userInformationQueryResponse;
   } catch (e) {
-    console.error('EXCEPTION: getUserByEmail() -  ', e);
+    console.error('EXCEPTION: getUserById() -  ', e);
     throw e;
   }
 }

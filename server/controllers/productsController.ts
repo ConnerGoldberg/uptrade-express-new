@@ -34,6 +34,7 @@ export const getScalapayConfiguration = async function (req, res) {
         console.log(err);
         res.status(err);
       });
+    return data;
   } catch (e) {
     console.log(e.message);
   }
