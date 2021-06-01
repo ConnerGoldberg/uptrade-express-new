@@ -56,7 +56,7 @@ CREATE TABLE `durations` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `interval` varchar(50) NOT NULL,
   `interval_count` int(5) unsigned NOT NULL,
-  `created_on` datetime NOT NULL DEFAULT utc_timestamp(),
+  `created_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   `archived` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
@@ -319,7 +319,7 @@ CREATE TABLE `prices` (
   `unit_amount` decimal(15,2) NOT NULL,
   `product_id` int(11) unsigned NOT NULL,
   `duration_id` int(11) unsigned DEFAULT NULL,
-  `created_on` datetime NOT NULL DEFAULT utc_timestamp(),
+  `created_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   `archived` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`),
@@ -349,7 +349,7 @@ DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `created_on` datetime NOT NULL DEFAULT utc_timestamp(),
+  `created_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   `archived` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
@@ -461,7 +461,7 @@ CREATE TABLE `user_product_transaction` (
   `discounted_amount` decimal(15,2) NOT NULL,
   `reference` varchar(100) NOT NULL,
   `payment_provider_reference` varchar(100) NOT NULL,
-  `created_on` datetime NOT NULL DEFAULT utc_timestamp(),
+  `created_on` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   `archived` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
@@ -492,7 +492,7 @@ CREATE TABLE `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(32) DEFAULT NULL,
   `password` varchar(60) DEFAULT NULL,
-  `email` text DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
   `verified` tinyint(1) NOT NULL DEFAULT 0,
   `profileimg` varchar(255) DEFAULT NULL,
   `role_id` int(11) DEFAULT NULL,
