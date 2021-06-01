@@ -34,6 +34,7 @@ const selectedQuote = quoteList[Math.floor(Math.random() * quoteList.length)];
 const Register = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
+  const [ABN, setABN] = useState('');
   const [password, setPassword] = useState('');
   const [confirmpassword, setConfirmPassword] = useState('');
   const [profileType, setProfileType] = useState('');
@@ -132,6 +133,21 @@ const Register = () => {
                             <option>Client</option>
                           </Input>
                         </FormGroup>
+
+                        {
+                          profileType?.toLowerCase() === "contractor" && (
+                            <FormGroup>
+                              <Input
+                                type="abn"
+                                placeholder="ABN"
+                                name="abn"
+                                onChange={(e) => {
+                                  setABN(e.target.value);
+                                }}
+                              />
+                        </FormGroup>
+                          )
+                        }
                       </div>
                       <Button block color="info">
                         <span className="trade-gothic__container">REGISTER</span>
